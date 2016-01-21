@@ -9,13 +9,13 @@ void printNode(struct node* head);
 struct node
 {
     int data;
-    struct node *next;
+    node *next;
 }*head=NULL,*last=NULL; //Intialising head and ast
 
 //Insert Nodes in Linked List
 void insertNode( int data)
 {
-    struct node* temp = (struct node*)malloc(sizeof(struct node)); // Dynamically allocating memory to temp of struct node
+    node* temp = new node; // Dynamically allocating memory to temp of struct node
     temp->data = data;
     temp->next = NULL;
     if(head == NULL)
