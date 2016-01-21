@@ -10,23 +10,30 @@ struct node
 {
     int data;
     node *next;
-}*head=NULL,*last=NULL; //Intialising head and ast
+}*head=NULL; //Intialising head and ast
 
 //Insert Nodes in Linked List
-void insertNode( int data)
+void insertNode(int data, int num)
 {
     node* temp = new node; // Dynamically allocating memory to temp of struct node
     temp->data = data;
     temp->next = NULL;
-    if(head == NULL)
+    if(num == 1 || head==NULL)
     {
+        temp->next = head;
         head = temp;
-        last=head;
+        return;
     }
     else
     {
-        last->next=temp;
-        last=temp;
+        node* temp1 = new node;
+        temp1 = head;
+        for(int i=0;i<num-2;i++)
+        {
+            temp1 = temp1->next;
+        }
+        temp->next = temp1->next;
+        temp1->next = temp;
     }
 }
 
@@ -55,8 +62,11 @@ int main()
     {
         int data; // Value of Node
         cin>>data;
-        insertNode(data); //Insert  Node
+        int node_num; //Position of insertion
+        cin>>node_num;
+        insertNode(data, node_num); //Insert  Node
     }
     printNode(head); //Print Node
     return 0;
 }
+
