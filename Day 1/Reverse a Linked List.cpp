@@ -16,7 +16,6 @@ void insertNode(node** head,int data)
     if(*head == NULL)
     {
         *head = temp;
-        cout<<"Head Inserted"<<endl;
     }
     else
     {
@@ -27,7 +26,6 @@ void insertNode(node** head,int data)
             last = last->next;
         }
         last->next = temp;
-        cout<<"Node Inserted"<<endl;
     }
 }
 
