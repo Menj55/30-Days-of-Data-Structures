@@ -1,76 +1,81 @@
 #include<iostream>
-#include<cstdio>
-#include<cstdlib>
 
 using namespace std;
-void insertNode(struct node* head, int data);
-void printNode(struct node* head);
 
 struct node
 {
     int data;
-    node *next;
-}*head=NULL,*last=NULL; //Intialising head and ast
+    node* next;
+};
 
-//Insert Nodes in Linked List
-void insertNode(int data)
+void insertNode(node** head,int data)
 {
-    node* temp = new node; // Dynamically allocating memory to temp of struct node
+    node* temp = new node;
     temp->data = data;
     temp->next = NULL;
-    if(head == NULL)
+    if(*head == NULL)
     {
-        head = temp;
-        last=head;
+        *head = temp;
+        cout<<"Head Inserted"<<endl;
     }
     else
     {
-        last->next=temp;
-        last=temp;
+        node* last = new node;
+        last = *head;
+        while(last->next!=NULL)
+        {
+            last = last->next;
+        }
+        last->next = temp;
+        cout<<"Node Inserted"<<endl;
     }
 }
 
-//Reverse the Linked List
-void reverseList(struct node* h)
+node* reverseList(node* h)
 {
     if(h->next == NULL)
     {
-        head = h;
-        return;
+        node* root = new node;
+        root = h;
+        return h;
     }
-    reverseList(head->next);
+    node* n = new node;
+    n = reverseList(h->next);
     h->next->next = h;
     h->next = NULL;
+    return n;
+
 }
 
-//Print Nodes of Linked List
-void printNode(struct node* head)
+void printList(node* head)
 {
-    if(head==NULL)
+    if(head == NULL)
     {
-        cout<<"NULL"<<endl; //If head is Null means linked list is empty.
+        cout<<"Empty"<<endl;
     }
     else
     {
-        while(head!=NULL)
+        while(head != NULL)
         {
-            cout<<head->data<<" "; //Printing the data in node.
+            cout<<head->data<<" ";
             head = head->next;
         }
+        cout<<endl;
     }
 }
-
 int main()
 {
-    int n; //Number of Nodes in Linked List
+    node* head = NULL;
+    int n;
     cin>>n;
     for(int i=0;i<n;i++)
     {
-        int data; // Value of Node
+        int data;
         cin>>data;
-        insertNode(data); //Insert  Node
+        insertNode(&head,data);
     }
-    reverseList(head);
-    printNode(head); //Print Node
+    printList(head);
+    head = reverseList(head);
+    printList(head);
     return 0;
 }
